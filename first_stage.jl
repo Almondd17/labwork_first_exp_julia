@@ -101,12 +101,8 @@ for i in eachindex(hs)
 
     #ruler uncertainty for D squared
     # Δ(Dᵢ²) = |d(Dᵢ²)/dDᵢ| * ΔD
-    #  = 2Dᵢ * ΔD where Di is the distance and ΔD is the ruler uncertainty (0.5mm constant)
-    individual_ruler_errors = 2 .* distances .* delta_D
-
-    #uncertainty of the average
-    ruler_error = sqrt(sum(individual_ruler_errors .^ 2)) / N
-
+    #  = 2D * ΔD where D is the average distance and ΔD is the ruler uncertainty (0.5mm constant)
+    ruler_error = 2 * mean(distances) * delta_D
     #calculate final uncertainty by combining the stat_error and ruler_error
     total_error = sqrt(stat_error^2 + ruler_error^2)
 
