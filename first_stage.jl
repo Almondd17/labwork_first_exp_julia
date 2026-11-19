@@ -145,7 +145,7 @@ b_lower = -0.002
 
 
 #graph creation
-xline = range(minimum(hs), maximum(hs), length=200)
+xline = range(0, 0.5, length=200)
 
 
 y_upper = a_upper .* xline .+ b_upper
@@ -187,17 +187,18 @@ p = scatter(
     ylabel = "D² (m²)",
     title = "D² as a function of hs",
 
-    label = "Experimental measurements",
+    label = "average squared distance for each hs",
     legend = :topleft,
 
-    #keep the graph scale fixed
-    xlims = (x_min, x_max),
-    ylims = (y_min, y_max),
+    xlims = (0, 0.45),
+    ylims = (0, 0.14),
 
-    xticks = (hs, [@sprintf("%.3f", h) for h in hs]),
+    xticks = 0:0.05:0.5,##even spaces to not effect result or linear dependence
     xrotation = 45,
+    markersize = 4,
     xtickfont = font(8),
-    capsize = 4
+    capsize = 3,
+    markerstrokewidth = 2
 )
 
 #upper line
@@ -205,9 +206,8 @@ plot!(
     p,
     xline,
     y_upper,
-    label = "Upper line",
-    linewidth = 2,
-    linestyle = :dash
+    label = "Upper line: D² = $(a_upper)hₛ $(b_upper)",
+    linewidth = 1,
 )
 
 #middle line
@@ -215,8 +215,8 @@ plot!(
     p,
     xline,
     y_middle,
-    label = "Middle line",
-    linewidth = 2
+    label = "Middle line: D² = $(a_middle)hₛ $(b_middle)",
+    linewidth = 1
 )
 
 #lower line
@@ -224,9 +224,8 @@ plot!(
     p,
     xline,
     y_lower,
-    label = "Lower line",
-    linewidth = 2,
-    linestyle = :dash
+    label = "Lower line: D² = $(a_lower)hₛ $(b_lower)",
+    linewidth = 1
 )
 
 #display the graph
